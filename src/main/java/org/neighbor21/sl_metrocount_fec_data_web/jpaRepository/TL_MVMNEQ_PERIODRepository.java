@@ -1,0 +1,33 @@
+package org.neighbor21.sl_metrocount_fec_data_web.jpaRepository;
+
+import org.neighbor21.sl_metrocount_fec_data_web.entity.TL_MVMNEQ_PERIODEntity;
+import org.neighbor21.sl_metrocount_fec_data_web.entity.compositeKey.TL_MVMNEQ_PERIOD_IdEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+/**
+ * packageName    : org.neighbor21.sl_metrocount_fec_data_web.jpaRepository
+ * fileName       : TL_MVMNEQ_PERIODRepository.java
+ * author         : kjg08
+ * date           : 24. 4. 29.
+ * description    : TL_MVMNEQ_PERIOD 테이블에 넣기 위한 리포지토리 인터페이스 네이티브쿼리
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 24. 4. 29.        kjg08           최초 생성
+ */
+public interface TL_MVMNEQ_PERIODRepository extends JpaRepository<TL_MVMNEQ_PERIODEntity, TL_MVMNEQ_PERIOD_IdEntity> {
+
+    /**
+     * 해당 instllcId에 대한 각각 가장 높은 순번값을 가져옴.
+     *
+     * @param instllcIds 설치 ID 목록
+     * @return 설치 ID와 최대 순번 값의 목록
+     */
+    @Query(value = "SELECT instllc_id, COALESCE(MAX(sqno), 0) as max_sqno FROM srlk.tl_mvmneq_period WHERE instllc_id IN :instllcIds GROUP BY instllc_id", nativeQuery = true)
+    List<Object[]> findMaxSequenceNoByInstllcIds(@Param("instllcIds") List<String> instllcIds);
+}
+

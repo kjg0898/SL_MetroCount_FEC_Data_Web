@@ -1,0 +1,50 @@
+plugins {
+    // Spring Boot 플러그인 설정
+    id 'org.springframework.boot' version '3.1.10'
+    // Spring Dependency Management 플러그인 설정
+    id 'io.spring.dependency-management' version '1.1.4'
+    // Java 플러그인 설정
+    id 'java'
+}
+
+// 그룹 및 버전 설정
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+// 소스 호환성 설정
+sourceCompatibility = '17'
+
+// 리포지토리 설정
+repositories {
+    // Maven 중앙 저장소 사용
+    mavenCentral()
+}
+
+// 의존성 설정
+dependencies {
+    // Spring Boot 웹 스타터 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Spring Boot JPA 스타터 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Spring Boot Thymeleaf 스타터 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // Lombok 의존성
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // PostgreSQL 드라이버 의존성
+    runtimeOnly 'org.postgresql:postgresql'
+    // Spring Boot 테스트 스타터 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Resilience4j 코어 의존성
+    implementation 'io.github.resilience4j:resilience4j-core:1.7.0'
+    // Resilience4j 재시도 의존성
+    implementation 'io.github.resilience4j:resilience4j-retry:1.7.0'
+
+    // Unirest 의존성 추가
+    implementation 'com.konghq:unirest-java:3.11.09'
+}
+
+// 테스트 태스크 설정
+tasks.named('test') {
+    useJUnitPlatform()
+}
